@@ -41,6 +41,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'rspec-rails'
+  gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git', branch: 'rails-5'
 end
 group :test do
   gem 'capybara'
@@ -48,3 +49,4 @@ group :test do
   gem 'launchy'
   gem 'selenium-webdriver'
 end
+gem 'devise'
