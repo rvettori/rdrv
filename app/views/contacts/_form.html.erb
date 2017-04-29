@@ -1,16 +1,18 @@
-<%= simple_form_for(@contact) do |f| %>
+<div id="vue-contacts-form">
+
+  <%= simple_form_for(@contact) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
     <%= f.input :name %>
     <%= f.input :email %>
     <%= f.input :born_at, as: :date, start_year: Date.today.year- 90,
-                              end_year: Date.today.year - 16,
-                              order: [:day, :month, :year]%>
+    end_year: Date.today.year - 16,
+    order: [:day, :month, :year]%>
 
-    <%= f.association :zipcode %>
+    <%= f.association :zipcode, label_html: {id: 'zipcode-label'} %>
     <%= f.input :nationality %>
-    <%= f.association :occupation %>
+    <%= f.association :occupation , label_html: {"id" => 'occupation-label', "v-on:click" => "occupation_click"} %>
     <%= f.input :about %>
   </div>
 
@@ -18,4 +20,8 @@
     <%= f.button :submit %>    
     &nbsp;<%= content_for(:back) %>
   </div>
-<% end %>
+  <% end %>
+
+  <%= render 'modal_zipcode', contact: @contact %>  
+
+</div> <!-- vue -->

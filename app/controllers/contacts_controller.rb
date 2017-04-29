@@ -3,8 +3,10 @@ class ContactsController < ApplicationController
 
   # GET /contacts
   # GET /contacts.json
-  def index
-    @contacts = Contact.all
+  def index    
+    # @contacts = Contact.all
+    @q = Contact.ransack(params[:q])
+    @contacts = @q.result
   end
 
   # GET /contacts/1
