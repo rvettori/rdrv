@@ -51,11 +51,12 @@ test:
   template: template0
 
 production:
-  adapter:  postgresql
-  host:     127.0.0.1
-  encoding: unicode
-  database: RDRV_production
-  pool:     5
-  username: postgres
-  password: postgres
-  template: template0
+  url: <%= ENV["DATABASE_URL"] %>
+  # adapter:  postgresql
+  # host:     127.0.0.1
+  # encoding: unicode
+  # database: RDRV_production
+  # pool:     5
+  # username: postgres
+  # password: postgres
+  # template: template0
