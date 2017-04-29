@@ -101,23 +101,63 @@ $(function(){
   });  
 
 
-  var vmList = new Vue({
-    el:'#vue-contacts-list',
+  // var vmList = new Vue({
+  //   el:'#vue-contacts-list',
 
-    data:{},
+  //   data:{},
 
-    methods: {
-    },
+  //   methods: {
+  //   },
 
-    mounted: function() {
-      var self = this;    
-      self.$nextTick(function() {});
-    }
+  //   mounted: function() {
+  //     var self = this;    
+  //     self.$nextTick(function() {
+
+  //     });
+  //   }
+  // });
+
+
+  $('#btn-save').on('click',function(event){
+
+    bootbox.prompt("Save filter current Filter", function(result){ 
+
+      if (!result) {
+        bootbox.alert("Can not be blank!");
+        return;
+      }
+
+      var pdata = {
+        target: 'contacts',
+        description: result,
+        query: $('#contact_search').serialize()
+      }
+
+      jQuery.ajax({
+        type: "POST",
+        url: '/segments',
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(pdata),
+        success: function(resp, status, xhr){
+          window.location.refresh;
+        },
+        error: function(){              
+          console.log('errors on save segment');
+        }
+      });
+    });  
+    event.preventDefault();
   });
 
 
+  $('#segment_id').on('change', function(){
+    var url = '/contacts?' + $(this).val();
+    window.location = url;
+  });
+
   var btn_apply_toggle = function() {
-      $('#btn-apply').hide()  
+    $('#btn-apply').hide()  
     $('#contact_search .field').each(function(){
       $('#btn-apply').show()  
     });
@@ -127,7 +167,6 @@ $(function(){
 
   $(document).on('click', '.remove_fields', function(event) {
     $(this).closest('.field').remove();
-    btn_apply_toggle();
     return event.preventDefault();
   });
 

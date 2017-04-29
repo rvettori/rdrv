@@ -8,24 +8,30 @@
 <%=t '.new', default: "New Contact"  %>
 <% end %>
 
-<!-- <a href="#filter" id="filter-btn" class="btn btn-default btn-action"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span> Filter</a> -->
-
 <div class="panel panel-default" id="filter-panel">
   <div class="panel-heading"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
     Custom Filters
   </div>
   <div class="panel-body">
 
-    <%= search_form_for @q do |f| %>
-    <%= f.condition_fields do |c| %>
-    <%= render "condition_fields", f: c %>
-    <% end %>
-    <p><%= link_to_add_fields "Add Conditions", f, :condition %></p>
-    <div class="actions">
-      <button type="submit" id="btn-apply" class="btn btn-default"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span> Apply</button>          
+    <div class="form-group">
+      <label>Segmentations</label>
+      <%= select_tag "segment_id",  options_from_collection_for_select(@segments, "query", "description"), include_blank:true, class: 'form-control' %>      
     </div>
-    <% end %>
 
+    <%= search_form_for @q do |f| %>
+    <fieldset>
+      <legend>Custom Filters</legend>
+      <%= f.condition_fields do |c| %>
+      <%= render "condition_fields", f: c %>
+      <% end %>
+      <p><%= link_to_add_fields "Add Conditions", f, :condition %></p>
+      <div class="actions">
+        <button type="submit" id="btn-apply" class="btn btn-default"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span> Apply</button>          
+        <a href="#" id="btn-save" class="btn btn-default"><span class="glyphicon glyphicon-save" aria-hidden="true"></span> Save Current Filter</a>
+      </div>
+    </fieldset>
+    <% end %>
 
   </div>
 </div>
